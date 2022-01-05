@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Text, Link, Button } from "@chakra-ui/react";
 import { MenuTypes } from "./MenuLinks";
 

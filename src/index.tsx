@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ChakraProvider, extendTheme, ColorModeScript } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Navbar from "./components/navbar";
 import {
   AuthenticationProvider,
