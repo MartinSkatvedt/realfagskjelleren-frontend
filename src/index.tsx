@@ -1,17 +1,52 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { ChakraProvider, extendTheme, ColorModeScript } from "@chakra-ui/react";
+import Navbar from "./components/navbar";
+import {
+  AuthenticationProvider,
+  oidcLog,
+  InMemoryWebStorage,
+} from "@axa-fr/react-oidc-context";
+import configuration from "./oidc/configuration";
+import Routes from "./Router";
+import { BrowserRouter } from "react-router-dom";
+
+const colors = {
+  rfk: {
+    orange: "#FD8200",
+  },
+};
+
+const settings = {
+  initalColorMode: "dark",
+  useSystemColorMode: false,
+};
+
+const styles = {
+  global: {
+    "html, body": {
+      backgroundColor: "white",
+    },
+  },
+};
+
+const theme = extendTheme({ settings, colors, styles });
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider theme={theme}>
+      <AuthenticationProvider
+        configuration={configuration}
+        loggerLevel={oidcLog.DEBUG}
+        isEnabled={true}
+        UserStore={InMemoryWebStorage}
+      >
+        <BrowserRouter>
+          <Navbar />
+          <Routes />
+        </BrowserRouter>
+      </AuthenticationProvider>
+    </ChakraProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
