@@ -2,19 +2,21 @@ import React, { FC } from "react";
 import NavLink from "./NavLink";
 import { Box, Stack } from "@chakra-ui/react";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
+import NavButton from "./NavButton";
 
 type MenuLinksProps = {
   isOpen: boolean;
 };
 
 export enum MenuTypes {
-  CONTACT = "Contact",
-  LOGIN = "Login",
+  CONTACT = "/Contact",
+  DASHBOARD = "/Dashboard",
+  STOCK = "/Stock",
   NONE = "None",
 }
 
 const MenuLinks: FC<MenuLinksProps> = ({ isOpen }: MenuLinksProps) => {
-  const { isEnabled, login, logout, signinSilent, oidcUser } = useReactOidc();
+  const { isEnabled, login, logout, oidcUser } = useReactOidc();
 
   return (
     <Box
@@ -28,14 +30,15 @@ const MenuLinks: FC<MenuLinksProps> = ({ isOpen }: MenuLinksProps) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <NavLink url={MenuTypes.CONTACT} name="Kontakt oss" />
-
         {oidcUser || !isEnabled ? (
-          <button onClick={() => logout()}>logout</button>
+          <>
+            <NavLink url={MenuTypes.DASHBOARD} name="Dashboard" />
+            <NavLink url={MenuTypes.STOCK} name="Varetelling" />
+            <NavButton name="Logout" func={logout} />
+          </>
         ) : (
           <>
-            <button onClick={() => login()}>login</button>
-            <button onClick={() => signinSilent()}>login - Silent - </button>
+            <NavButton name="Login" func={login} />
           </>
         )}
       </Stack>
@@ -44,3 +47,4 @@ const MenuLinks: FC<MenuLinksProps> = ({ isOpen }: MenuLinksProps) => {
 };
 
 export default MenuLinks;
+//<NavLink url={MenuTypes.CONTACT} name="Kontakt oss" />

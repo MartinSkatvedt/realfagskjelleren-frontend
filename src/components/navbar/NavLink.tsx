@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import { Text, Link, Button } from "@chakra-ui/react";
+import { Text, Link } from "@chakra-ui/react";
 import { MenuTypes } from "./MenuLinks";
+import { useLocation } from "react-router-dom";
 
 type NavLinkProps = {
   name: string;
@@ -9,33 +10,23 @@ type NavLinkProps = {
 };
 
 const NavLink: FC<NavLinkProps> = ({ name, url, isRight }: NavLinkProps) => {
-  //const router = useRouter();
-  //const currentTab = router.pathname.slice(1);
-  let isCurrent = false;
+  const router = useLocation();
+  const isCurrent = router.pathname === url;
 
-  //if (currentTab == url) isCurrent = true;
-  //else isCurrent = false;
-  if (isRight)
-    return (
-      <Button _hover={{ color: "rfk.orange" }} bg="black" p={5} fontSize="xl">
+  return (
+    <Link href={url} _hover={{ textDecoration: "none" }}>
+      <Text
+        fontSize="3xl"
+        display="block"
+        textDecoration={isCurrent ? "underline" : "none"}
+        textDecorationColor="black"
+        textUnderlineOffset="0.2em"
+        color="black"
+      >
         {name}
-      </Button>
-    );
-  else
-    return (
-      <Link href={url}>
-        <Text
-          fontSize="3xl"
-          display="block"
-          textDecoration={isCurrent ? "underline" : "none"}
-          textDecorationColor="black"
-          textUnderlineOffset="0.2em"
-          color="black"
-        >
-          {name}
-        </Text>
-      </Link>
-    );
+      </Text>
+    </Link>
+  );
 };
 
 export default NavLink;
