@@ -6,6 +6,10 @@ import { AuthenticationProvider, oidcLog } from "@axa-fr/react-oidc-context";
 import configuration from "./oidc/configuration";
 import Routes from "./Router";
 import { BrowserRouter } from "react-router-dom";
+import CustomCallback from "./oidc/CustomCallback";
+import NotAuthenticatedComponent from "./oidc/NotAuthenticatedComponent";
+import NotAuthorizedComponent from "./oidc/NotAuthorizedComponent";
+import AuthenticatingComponent from "./oidc/AuthenticatingComponent";
 
 const colors = {
   rfk: {
@@ -36,6 +40,10 @@ ReactDOM.render(
           configuration={configuration}
           loggerLevel={oidcLog.DEBUG}
           isEnabled={true}
+          callbackComponentOverride={CustomCallback}
+          notAuthenticated={NotAuthenticatedComponent}
+          notAuthorized={NotAuthorizedComponent}
+          authenticating={AuthenticatingComponent}
         >
           <Navbar />
           <Routes />
