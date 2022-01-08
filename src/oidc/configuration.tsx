@@ -3,7 +3,7 @@ const configuration = {
   redirect_uri: process.env.REACT_APP_VERCEL_URL + "/authentication/callback",
   response_type: "code",
   post_logout_redirect_uri: process.env.REACT_APP_VERCEL_URL,
-  scope: "openid profile email",
+  scope: "openid read write",
   authority: process.env.REACT_APP_OIDC_AUTHORITY,
   silent_redirect_uri:
     process.env.REACT_APP_VERCEL_URL + "/authentication/silent_callback",

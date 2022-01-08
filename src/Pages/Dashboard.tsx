@@ -30,7 +30,7 @@ const DashBoard: React.FC = () => {
           <Tbody>
             <Tr>
               <Td>Name</Td>
-              <Td>{profile.name}</Td>
+              <Td>{profile.username}</Td>
             </Tr>
             <Tr>
               <Td>Email</Td>

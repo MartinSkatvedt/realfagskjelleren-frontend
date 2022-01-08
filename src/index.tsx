@@ -38,9 +38,7 @@ ReactDOM.render(
       <BrowserRouter>
         <AuthenticationProvider
           configuration={configuration}
-          loggerLevel={oidcLog.DEBUG}
           isEnabled={true}
-          callbackComponentOverride={CustomCallback}
           notAuthenticated={NotAuthenticatedComponent}
           notAuthorized={NotAuthorizedComponent}
           authenticating={AuthenticatingComponent}
@@ -53,3 +51,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+//callbackComponentOverride={CustomCallback}
