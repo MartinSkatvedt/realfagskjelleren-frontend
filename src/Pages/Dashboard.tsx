@@ -14,7 +14,6 @@ import {
 const DashBoard: React.FC = () => {
   const { oidcUser } = useReactOidc();
   const { profile } = oidcUser;
-  console.log(profile);
   return (
     <Container textAlign="center">
       <Heading>Dashboard</Heading>

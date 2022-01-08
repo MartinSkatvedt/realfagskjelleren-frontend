@@ -1,17 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { fetchProducts } from "../api/index";
-import { Product } from "../types/apiTypes";
+import {
+  Product,
+  StockCountApiType,
+  TotalCountApiType,
+} from "../types/apiTypes";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
 import ProductComponent from "../components/ProductComponent";
 import { createProductCount } from "../api/index";
 type StockCountType = {
   [key: number]: number;
-};
-
-type StockCountApiType = {
-  product: number;
-  amount: number;
 };
 
 const Stock: FC = () => {
@@ -36,7 +35,7 @@ const Stock: FC = () => {
         amount: stockCount[Number(key)],
       });
     });
-    const payload = {
+    const payload: TotalCountApiType = {
       author: profile.sub,
       data,
     };

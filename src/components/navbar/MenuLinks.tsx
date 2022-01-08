@@ -12,6 +12,8 @@ export enum MenuTypes {
   CONTACT = "/Contact",
   DASHBOARD = "/Dashboard",
   STOCK = "/Stock",
+  REPORT = "/Report",
+  INSIGHT = "/Insight",
   NONE = "None",
 }
 
@@ -34,6 +36,8 @@ const MenuLinks: FC<MenuLinksProps> = ({ isOpen }: MenuLinksProps) => {
           <>
             <NavLink url={MenuTypes.DASHBOARD} name="Dashboard" />
             <NavLink url={MenuTypes.STOCK} name="Varetelling" />
+            <NavLink url={MenuTypes.REPORT} name="Rapporter" />
+            <NavLink url={MenuTypes.INSIGHT} name="Innsikt" />
             <NavButton name="Logout" func={logout} />
           </>
         ) : (
