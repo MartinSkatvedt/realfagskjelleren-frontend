@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC } from "react";
 import { Product } from "../../types/apiTypes";
 import { Box, Heading, Input, SimpleGrid } from "@chakra-ui/react";
 
@@ -10,12 +10,6 @@ const ProductComponent: FC<ProductComponentProps> = ({
   product,
   func,
 }: ProductComponentProps) => {
-  const [quantity, setQuantity] = useState(0);
-
-  useEffect(() => {
-    func(product, quantity);
-  }, [quantity]);
-
   return (
     <SimpleGrid
       w="10%"
@@ -32,7 +26,7 @@ const ProductComponent: FC<ProductComponentProps> = ({
         <Input
           type="number"
           placeholder="quantity"
-          onChange={(e) => setQuantity(Number(e.target.value))}
+          onChange={(e) => func(product, Number(e.target.value))}
         />
       </Box>
     </SimpleGrid>
