@@ -6,11 +6,13 @@ import DashBoard from "../Pages/Dashboard";
 import Stock from "../Pages/Stock";
 import Report from "../Pages/Report";
 import Insight from "../Pages/Insight";
+import Replenishment from "../Pages/Replenishment";
 //const PageNotFound = () => <div>Page not found</div>;
 const ProtectedDashboard = withOidcSecure(DashBoard);
 const ProtectedStock = withOidcSecure(Stock);
 const ProtectedReport = withOidcSecure(Report);
 const ProtectedInsight = withOidcSecure(Insight);
+const ProtectedReplenishment = withOidcSecure(Replenishment);
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -19,6 +21,7 @@ const AppRoutes: React.FC = () => (
     <Route path="/stock" element={<ProtectedStock />}></Route>
     <Route path="/report" element={<ProtectedReport />}></Route>
     <Route path="/insight" element={<ProtectedInsight />}></Route>
+    <Route path="/replenishment" element={<ProtectedReplenishment />}></Route>
     {/* <Route component={PageNotFound}*/}
   </Routes>
 );

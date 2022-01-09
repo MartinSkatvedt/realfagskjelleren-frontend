@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
-import { fetchProducts, createProductCount } from "../api/index";
+import { fetchProducts, createProductReplenishment } from "../api/index";
 import {
   Product,
   StockCountApiType,
@@ -8,12 +8,10 @@ import {
 } from "../types/apiTypes";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
 import ProductComponent from "../components/ProductComponent";
-
 type StockCountType = {
   [key: number]: number;
 };
-
-const Stock: FC = () => {
+const Replenishment: FC = () => {
   const { oidcUser } = useReactOidc();
   const { profile } = oidcUser;
 
@@ -40,7 +38,7 @@ const Stock: FC = () => {
       data,
     };
 
-    createProductCount(payload, oidcUser.access_token)
+    createProductReplenishment(payload, oidcUser.access_token)
       .then((res) => {
         if (res.status === 201) {
           alert("Suksess! Data er sendt til server");
@@ -66,7 +64,7 @@ const Stock: FC = () => {
 
   return (
     <Box textAlign="center">
-      <Heading>Varetelling</Heading>
+      <Heading>Varepåfylling</Heading>
       <Flex width="80%" marginLeft="auto" marginRight="auto" wrap="wrap">
         {renderProducts()}
       </Flex>
@@ -83,4 +81,4 @@ const Stock: FC = () => {
   );
 };
 
-export default Stock;
+export default Replenishment;
