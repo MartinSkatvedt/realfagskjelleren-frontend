@@ -9,12 +9,12 @@ type MenuLinksProps = {
 };
 
 export enum MenuTypes {
-  CONTACT = "/Contact",
-  DASHBOARD = "/Dashboard",
-  STOCK = "/Stock",
-  REPORT = "/Report",
-  INSIGHT = "/Insight",
-  REPLENISHMENT = "/Replenishment",
+  CONTACT = "/contact",
+  DASHBOARD = "/dashboard",
+  STOCK = "/stock",
+  REPORT = "/report",
+  INSIGHT = "/insight",
+  REPLENISHMENT = "/replenishment",
   NONE = "None",
 }
 

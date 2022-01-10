@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useContext } from "react";
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { fetchProducts, createProductReplenishment } from "../api/index";
 import {
@@ -8,14 +8,19 @@ import {
 } from "../types/apiTypes";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
 import ProductComponent from "../components/ProductComponent";
+import { StateContext } from "../state/state";
+import { setProducts } from "../state/actions";
+import ConfirmationAlert from "../components/ConfirmationAlert";
+
 type StockCountType = {
   [key: number]: number;
 };
 const Replenishment: FC = () => {
   const { oidcUser } = useReactOidc();
   const { profile } = oidcUser;
-
-  const [products, setProducts] = useState<Product[]>([]);
+  const { state, dispatch } = useContext(StateContext);
+  const { products } = state;
+  console.log(products);
   const [stockCount, setStockCount] = useState<StockCountType>({});
 
   const updateStockCount = (product: Product, quantity: number) => {
@@ -47,8 +52,13 @@ const Replenishment: FC = () => {
   };
 
   useEffect(() => {
-    fetchProducts(oidcUser.access_token).then((res) => setProducts(res));
-  }, [oidcUser.access_token]);
+    if (products.length <= 0) {
+      fetchProducts(oidcUser.access_token).then((res) =>
+        dispatch(setProducts(res))
+      );
+    }
+  }, [oidcUser.access_token, products, dispatch]);
+
   const renderProducts = () => {
     return products.map((product) =>
       product.active ? (
@@ -67,15 +77,7 @@ const Replenishment: FC = () => {
       <Flex width="80%" marginLeft="auto" marginRight="auto" wrap="wrap">
         {renderProducts()}
       </Flex>
-      <Button
-        _hover={{}}
-        size="lg"
-        bg="rfk.orange"
-        marginTop="10px"
-        onClick={() => submit()}
-      >
-        Send inn
-      </Button>
+      <ConfirmationAlert func={submit} title="varepåfylling" />
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import {
   fetchProductCount,
@@ -7,9 +7,13 @@ import {
 } from "../api/index";
 import { TotalCountApiType, Product } from "../types/apiTypes";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
+import { StateContext } from "../state/state";
+import { setProducts } from "../state/actions";
+
 const Insight: FC = () => {
   const { oidcUser } = useReactOidc();
-  const [products, setProducts] = useState<Product[]>([]);
+  const { state, dispatch } = useContext(StateContext);
+  const { products } = state;
   const [productCounts, setProductCounts] = useState<TotalCountApiType[]>([]);
   const [productReplenishment, setProductReplenishment] = useState<
     TotalCountApiType[]
@@ -22,8 +26,13 @@ const Insight: FC = () => {
     fetchProductReplenishment(oidcUser.access_token).then((res) =>
       setProductReplenishment(res)
     );
-    fetchProducts(oidcUser.access_token).then((res) => setProducts(res));
-  }, [oidcUser.access_token]);
+
+    if (products.length <= 0) {
+      fetchProducts(oidcUser.access_token).then((res) =>
+        dispatch(setProducts(res))
+      );
+    }
+  }, [dispatch, oidcUser.access_token, products]);
 
   return (
     <Box w="100%" textAlign="center">

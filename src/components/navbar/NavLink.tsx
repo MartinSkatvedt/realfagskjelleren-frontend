@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Text, Link } from "@chakra-ui/react";
 import { MenuTypes } from "./MenuLinks";
 import { useLocation } from "react-router-dom";
-
+import { Link as RouterLink } from "react-router-dom";
 type NavLinkProps = {
   name: string;
   url: MenuTypes;
@@ -14,7 +14,7 @@ const NavLink: FC<NavLinkProps> = ({ name, url, isRight }: NavLinkProps) => {
   const isCurrent = router.pathname === url;
 
   return (
-    <Link href={url} _hover={{ textDecoration: "none" }}>
+    <Link as={RouterLink} to={url} _hover={{ textDecoration: "none" }}>
       <Text
         fontSize="3xl"
         display="block"

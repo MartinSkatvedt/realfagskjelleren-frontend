@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
-import { Box, Flex, Heading, Button } from "@chakra-ui/react";
+import React, { FC, useEffect, useState, useContext } from "react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import { fetchProducts, createProductCount } from "../api/index";
 import {
   Product,
@@ -8,6 +8,9 @@ import {
 } from "../types/apiTypes";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
 import ProductComponent from "../components/ProductComponent";
+import { StateContext } from "../state/state";
+import { setProducts } from "../state/actions";
+import ConfirmationAlert from "../components/ConfirmationAlert";
 
 type StockCountType = {
   [key: number]: number;
@@ -16,8 +19,8 @@ type StockCountType = {
 const Stock: FC = () => {
   const { oidcUser } = useReactOidc();
   const { profile } = oidcUser;
-
-  const [products, setProducts] = useState<Product[]>([]);
+  const { state, dispatch } = useContext(StateContext);
+  const { products } = state;
   const [stockCount, setStockCount] = useState<StockCountType>({});
   let nActiveProducts = 0;
   const updateStockCount = (product: Product, quantity: number) => {
@@ -53,8 +56,13 @@ const Stock: FC = () => {
   };
 
   useEffect(() => {
-    fetchProducts(oidcUser.access_token).then((res) => setProducts(res));
-  }, [oidcUser.access_token]);
+    if (products.length <= 0) {
+      fetchProducts(oidcUser.access_token).then((res) =>
+        dispatch(setProducts(res))
+      );
+    }
+  }, [oidcUser.access_token, products, dispatch]);
+  console.log(products);
   const renderProducts = () => {
     return products.map((product) => {
       if (product.active) {
@@ -76,15 +84,7 @@ const Stock: FC = () => {
       <Flex width="80%" marginLeft="auto" marginRight="auto" wrap="wrap">
         {renderProducts()}
       </Flex>
-      <Button
-        _hover={{}}
-        size="lg"
-        bg="rfk.orange"
-        marginTop="10px"
-        onClick={() => submit()}
-      >
-        Send inn
-      </Button>
+      <ConfirmationAlert func={submit} title="varetelling" />
     </Box>
   );
 };

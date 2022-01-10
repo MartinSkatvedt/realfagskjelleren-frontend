@@ -1,10 +1,10 @@
-import React, { createContext, Dispatch, ReactNode, useReducer } from "react";
-import { Product } from "../types/apiTypes";
-import { Action, ActionTypes } from "./Actions";
-
-type State = {
-  products: Product[];
-};
+import React, { createContext, useReducer } from "react";
+import { Action, ActionTypes } from "./actions";
+import {
+  State,
+  StateContextProps,
+  StateProviderProps,
+} from "../types/stateTypes";
 
 const initalState: State = {
   products: [],
@@ -19,11 +19,6 @@ const StateReducer = (state: State, action: Action) => {
   }
 };
 
-type StateContextProps = {
-  state: State;
-  dispatch: Dispatch<any>;
-};
-
 const initalContext: StateContextProps = {
   state: initalState,
   dispatch: () => {},
@@ -31,15 +26,12 @@ const initalContext: StateContextProps = {
 
 export const StateContext = createContext<StateContextProps>(initalContext);
 
-type StateProviderProps = {
-  children: ReactNode;
-};
-
-export const StateProvider = (props: StateProviderProps) => {
+export const StateProvider = (props: StateProviderProps): JSX.Element => {
   const [state, dispatch] = useReducer(StateReducer, initalState);
+  const { children } = props;
   return (
     <StateContext.Provider value={{ state, dispatch }}>
-      {props.children}
+      {children}
     </StateContext.Provider>
   );
 };
