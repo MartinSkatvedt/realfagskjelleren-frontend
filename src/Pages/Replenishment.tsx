@@ -8,7 +8,7 @@ import {
 } from "../types/apiTypes";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
 import ProductComponent from "../components/ProductComponent";
-import { StateContext } from "../state/state";
+import { StateContext } from "../state";
 import { setProducts } from "../state/actions";
 import ConfirmationAlert from "../components/ConfirmationAlert";
 
