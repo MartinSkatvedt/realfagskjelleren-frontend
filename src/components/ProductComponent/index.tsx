@@ -12,7 +12,7 @@ const ProductComponent: FC<ProductComponentProps> = ({
 }: ProductComponentProps) => {
   return (
     <SimpleGrid
-      w="10%"
+      w={["100%", "60%", "40%", "10%"]}
       border="1px solid black"
       margin="10px"
       columns={1}

@@ -27,7 +27,6 @@ const Replenishment: FC = () => {
   const submit = () => {
     let data: StockCountApiType[] = [];
     Object.keys(stockCount).forEach((key) => {
-      console.log(key);
       data.push({
         product: Number(key),
         amount: stockCount[Number(key)],

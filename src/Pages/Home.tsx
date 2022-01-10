@@ -5,7 +5,7 @@ const Home: React.FC = () => {
   return (
     <Box>
       <Box
-        w="40%"
+        w={["80%", "40%"]}
         textAlign="center"
         justifyContent="center"
         marginLeft="auto"

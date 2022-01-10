@@ -19,7 +19,7 @@ const Stock: FC = () => {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [stockCount, setStockCount] = useState<StockCountType>({});
-
+  let nActiveProducts = 0;
   const updateStockCount = (product: Product, quantity: number) => {
     const newStockCount = { ...stockCount };
     newStockCount[product.id] = quantity;
@@ -29,7 +29,6 @@ const Stock: FC = () => {
   const submit = () => {
     let data: StockCountApiType[] = [];
     Object.keys(stockCount).forEach((key) => {
-      console.log(key);
       data.push({
         product: Number(key),
         amount: stockCount[Number(key)],
@@ -40,6 +39,10 @@ const Stock: FC = () => {
       data,
     };
 
+    if (data.length < nActiveProducts) {
+      alert("Du har ikke fylt ut alle produkter");
+      return;
+    }
     createProductCount(payload, oidcUser.access_token)
       .then((res) => {
         if (res.status === 201) {
@@ -53,15 +56,18 @@ const Stock: FC = () => {
     fetchProducts(oidcUser.access_token).then((res) => setProducts(res));
   }, [oidcUser.access_token]);
   const renderProducts = () => {
-    return products.map((product) =>
-      product.active ? (
-        <ProductComponent
-          key={product.id}
-          product={product}
-          func={updateStockCount}
-        />
-      ) : null
-    );
+    return products.map((product) => {
+      if (product.active) {
+        nActiveProducts++;
+        return (
+          <ProductComponent
+            key={product.id}
+            product={product}
+            func={updateStockCount}
+          />
+        );
+      } else return null;
+    });
   };
 
   return (
