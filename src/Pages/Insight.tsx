@@ -5,7 +5,7 @@ import {
   fetchProductReplenishment,
   fetchProducts,
 } from "../api/index";
-import { TotalCountApiType, Product } from "../types/apiTypes";
+import { TotalCountApiType } from "../types/apiTypes";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
 import { StateContext } from "../state/state";
 import { setProducts } from "../state/actions";
