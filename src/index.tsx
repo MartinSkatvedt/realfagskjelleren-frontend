@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import NotAuthenticatedComponent from "./oidc/NotAuthenticatedComponent";
 import NotAuthorizedComponent from "./oidc/NotAuthorizedComponent";
 import AuthenticatingComponent from "./oidc/AuthenticatingComponent";
+import { StateProvider } from "./State/state";
 
 const colors = {
   rfk: {
@@ -34,18 +35,20 @@ const theme = extendTheme({ settings, colors, styles });
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
-        <AuthenticationProvider
-          configuration={configuration}
-          isEnabled={true}
-          notAuthenticated={NotAuthenticatedComponent}
-          notAuthorized={NotAuthorizedComponent}
-          authenticating={AuthenticatingComponent}
-        >
-          <Navbar />
-          <Routes />
-        </AuthenticationProvider>
-      </BrowserRouter>
+      <StateProvider>
+        <BrowserRouter>
+          <AuthenticationProvider
+            configuration={configuration}
+            isEnabled={true}
+            notAuthenticated={NotAuthenticatedComponent}
+            notAuthorized={NotAuthorizedComponent}
+            authenticating={AuthenticatingComponent}
+          >
+            <Navbar />
+            <Routes />
+          </AuthenticationProvider>
+        </BrowserRouter>
+      </StateProvider>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
