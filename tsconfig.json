@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-, "state/actions.ts", "state/index.tsx"  ]
+, "src/state/actions.ts", "src/state/index.tsx"  ]
 }

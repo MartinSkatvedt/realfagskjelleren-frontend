@@ -7,8 +7,8 @@ import {
 } from "../api/index";
 import { TotalCountApiType } from "../types/apiTypes";
 import { useReactOidc } from "@axa-fr/react-oidc-context";
-import { StateContext } from "../../state";
-import { setProducts } from "../../state/actions";
+import { StateContext } from "../state";
+import { setProducts } from "../state/actions";
 
 const Insight: FC = () => {
   const { oidcUser } = useReactOidc();

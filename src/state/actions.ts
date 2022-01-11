@@ -1,4 +1,4 @@
-import { Product } from "../src/types/apiTypes";
+import { Product } from "../types/apiTypes";
 
 export enum ActionTypes {
   SET_PRODUCTS = "SET_PRODUCTS",

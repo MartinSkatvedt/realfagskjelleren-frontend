@@ -4,7 +4,7 @@ import {
   State,
   StateContextProps,
   StateProviderProps,
-} from "../src/types/stateTypes";
+} from "../types/stateTypes";
 
 const initalState: State = {
   products: [],

@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import NotAuthenticatedComponent from "./oidc/NotAuthenticatedComponent";
 import NotAuthorizedComponent from "./oidc/NotAuthorizedComponent";
 import AuthenticatingComponent from "./oidc/AuthenticatingComponent";
-import { StateProvider } from "../state";
+import { StateProvider } from "./state";
 
 const colors = {
   rfk: {
